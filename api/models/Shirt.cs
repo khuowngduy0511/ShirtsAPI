@@ -9,7 +9,7 @@ namespace api
 {
     public class Shirt
     {
-        public int ShirtID { get; set; }
+        public int ShirtId { get; set; }
         [Required]
         public string? Brand { get; set; }
         [Required]

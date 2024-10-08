@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.models.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.controller
@@ -10,13 +11,6 @@ namespace api.controller
     [Route("api/[controller]")]
     public class ShirtsController : ControllerBase
     {
-        private List<Shirt> shirts = new List<Shirt>()
-        {
-            new Shirt {ShirtID = 1, Brand = "My Brand", Color = "Red", Gender = "Men", Price = 30, Size = 9},
-            new Shirt {ShirtID = 2, Brand = "My Brand", Color = "Blue", Gender = "Men", Price = 35, Size = 10},
-            new Shirt {ShirtID = 3, Brand = "Your Brand", Color = "Black", Gender = "Women", Price = 29.5, Size = 8},
-            new Shirt {ShirtID = 4, Brand = "Your Brand", Color = "Pink", Gender = "Women", Price = 37, Size = 6}
-        };
 
         [HttpGet]
         public IActionResult GetShirts()
@@ -32,7 +26,7 @@ namespace api.controller
                 return BadRequest ();
             }
 
-            var shirt = shirts.FirstOrDefault(x => x.ShirtID == id);
+            var shirt = ShirtRepository.GetShirtById(id);
             if (shirt == null)
             {
                 return NotFound();
