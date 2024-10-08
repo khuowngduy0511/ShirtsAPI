@@ -19,13 +19,13 @@ namespace api.controller
         [HttpGet ("{id}")]
         public string GetShirtsById(int id)
         {
-            return $"Reading shirt: {id} ";
+            return $"Reading shirt: {id}";
         }
 
         [HttpPost]
-        public string CreateShirt()
+        public string CreateShirt([FromBody] Shirt shirt)
         {
-            return $"Create a Shirt";
+            return $"Creating a shirt";
         }
 
         [HttpPut ("{id}")]
