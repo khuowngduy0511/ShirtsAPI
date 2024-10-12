@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Filters;
 using api.models.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,20 +20,10 @@ namespace api.controller
         }
         
         [HttpGet ("{id}")]
+        [Shirt_ValidateShirtIdFilter]
         public IActionResult GetShirtsById(int id)
         {
-            if(id <= 0)
-            {
-                return BadRequest ();
-            }
-
-            var shirt = ShirtRepository.GetShirtById(id);
-            if (shirt == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(shirt);
+            return Ok(ShirtRepository.GetShirtById(id));
         }
 
         [HttpPost]
