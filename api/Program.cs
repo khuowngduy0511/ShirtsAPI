@@ -4,43 +4,28 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
-//routing 
 
-// "/shirts"
-
-app.MapGet("/shirts", () =>
+if (app.Environment.IsDevelopment())
 {
-    return "Reading all the shirts";
-});
-
-app.MapGet("/shirts/{id}", (int id) =>
-{
-    return $"Reading shirt with id: {id}";
-});
-
-app.MapPost("/shirts", () =>
-{
-    return "Creating a new shirt";
-});
-
-app.MapPut("/shirts/{id}", (int id) =>
-{
-    return $"Updating shirt with ID: {id}";
-});
-
-app.MapDelete("/shirts/{id}", (int id) =>
-{
-    return $"Deleting shirt with ID: {id}";
-});
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
 
+app.UseAuthentication();
+
+app.UseAuthorization();
+
+app.MapControllers();
 
 app.Run();
 
